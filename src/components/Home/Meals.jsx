@@ -9,9 +9,11 @@ const Meals = () => {
     queryKey: ["meals"],
     queryFn: async () => {
       const result = await axios(`${import.meta.env.VITE_API_URL}/meals`);
+      // console.log(result.data);
       return result.data;
     },
   });
+  console.log(meals);
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -19,9 +21,9 @@ const Meals = () => {
     <Container>
       {meals && meals.length > 0 ? (
         <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-          {/* {meals.map(plant => (
-            <Card key={plant._id} plant={plant} />
-          ))} */}
+          {meals.map(meal => (
+            <Card key={meal._id} meal={meal} />
+          ))}
         </div>
       ) : null}
     </Container>

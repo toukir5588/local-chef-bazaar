@@ -2,7 +2,7 @@ import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
-import PlantDetails from '../pages/PlantDetails/PlantDetails'
+import PlantDetails from '../pages/MealDetails/MealDetails'
 // import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import AddPlant from '../pages/Dashboard/Seller/AddPlant'
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/plant/:id',
+        path: '/meal/:id',
         element: <PlantDetails />,
       },
       {

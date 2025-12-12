@@ -1,3 +1,4 @@
+import React from "react";
 import Container from "../../components/Shared/Container";
 import Heading from "../../components/Shared/Heading";
 import Button from "../../components/Shared/Button/Button";
@@ -8,23 +9,24 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 
-const PlantDetails = () => {
+const MealDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
   const { id } = useParams();
 
-  const { data: plant = {}, isLoading } = useQuery({
-    queryKey: ["plant", id],
+  const { data: meal = {}, isLoading } = useQuery({
+    queryKey: ["meal", id],
     queryFn: async () => {
-      const result = await axios(`${import.meta.env.VITE_API_URL}/meals/${id}`);
+      const result = await axios(`${import.meta.env.VITE_API_URL}/meal/${id}`);
       return result.data;
     },
   });
+  // console.log(meal);
 
   const closeModal = () => {
     setIsOpen(false);
   };
   if (isLoading) return <LoadingSpinner />;
-  const { image, name, description, category, quantity, price, seller } = plant;
+  const { image, name, description, category, quantity, price, seller } = meal;
   return (
     <Container>
       <div className="mx-auto flex flex-col lg:flex-row justify-between w-full gap-12">
@@ -35,7 +37,7 @@ const PlantDetails = () => {
               <img
                 className="object-cover w-full"
                 src={image}
-                alt="header image"
+                alt="meal image"
               />
             </div>
           </div>
@@ -94,7 +96,7 @@ const PlantDetails = () => {
           </div>
           <hr className="my-6" />
           <PurchaseModal
-            plant={plant}
+            meal={meal}
             closeModal={closeModal}
             isOpen={isOpen}
           />
@@ -104,4 +106,4 @@ const PlantDetails = () => {
   );
 };
 
-export default PlantDetails;
+export default MealDetails;

@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "../../../assets/images/placeholder.jpg";
 import logo from "../../../assets/images/logo.png";
-import navImg from "../../../assets/images/navImg2.jpg";
+// import navImg from "../../../assets/images/navImg2.jpg";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);

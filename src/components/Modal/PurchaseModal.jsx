@@ -2,18 +2,19 @@ import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import useAuth from '../../hooks/useAuth'
 import axios from 'axios'
 
-const PurchaseModal = ({ closeModal, isOpen, plant }) => {
+const PurchaseModal = ({ closeModal, isOpen, meal }) => {
   const { user } = useAuth()
-  const { _id, name, category, price, description, image, seller } = plant || {}
+  const { _id, name, category, price, description, foodImage, seller } = meal || {}
+  console.log(meal);
 
   const handlePayment = async () => {
     const paymentInfo = {
-      plantId: _id,
+      mealId: _id,
       name,
       category,
       price,
       description,
-      image,
+      foodImage,
       quantity: 1,
       seller,
       customer: {
