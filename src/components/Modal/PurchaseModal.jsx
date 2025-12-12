@@ -4,19 +4,19 @@ import axios from 'axios'
 
 const PurchaseModal = ({ closeModal, isOpen, meal }) => {
   const { user } = useAuth()
-  const { _id, name, category, price, description, foodImage, seller } = meal || {}
+  const { _id, foodName, category, price, description, foodImage, chefName } = meal || {}
   console.log(meal);
 
   const handlePayment = async () => {
     const paymentInfo = {
       mealId: _id,
-      name,
+      name: foodName,
       category,
       price,
       description,
       foodImage,
       quantity: 1,
-      seller,
+      chef:chefName,
       customer: {
         name: user?.displayName,
         email: user?.email,

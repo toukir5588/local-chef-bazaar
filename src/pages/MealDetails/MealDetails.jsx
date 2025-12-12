@@ -20,13 +20,13 @@ const MealDetails = () => {
       return result.data;
     },
   });
-  // console.log(meal);
+  console.log(meal);
 
   const closeModal = () => {
     setIsOpen(false);
   };
   if (isLoading) return <LoadingSpinner />;
-  const { image, name, description, category, quantity, price, seller } = meal;
+  const { foodImage, foodName, description, category, quantity, price, chefName } = meal;
   return (
     <Container>
       <div className="mx-auto flex flex-col lg:flex-row justify-between w-full gap-12">
@@ -36,7 +36,7 @@ const MealDetails = () => {
             <div className="w-full overflow-hidden rounded-xl">
               <img
                 className="object-cover w-full"
-                src={image}
+                src={foodImage}
                 alt="meal image"
               />
             </div>
@@ -44,7 +44,7 @@ const MealDetails = () => {
         </div>
         <div className="md:gap-10 flex-1">
           {/* Plant Info */}
-          <Heading title={name} subtitle={`Category: ${category}`} />
+          <Heading title={foodName} subtitle={`Category: ${category}`} />
           <hr className="my-6" />
           <div
             className="
@@ -64,7 +64,7 @@ const MealDetails = () => {
                 gap-2
               "
           >
-            <div>Seller: {seller?.name}</div>
+            <div>Chef: {chefName?.name}</div>
 
             <img
               className="rounded-full"
@@ -72,7 +72,7 @@ const MealDetails = () => {
               width="30"
               alt="Avatar"
               referrerPolicy="no-referrer"
-              src={seller?.image}
+              src={chefName?.image}
             />
           </div>
           <hr className="my-6" />
@@ -100,7 +100,12 @@ const MealDetails = () => {
             closeModal={closeModal}
             isOpen={isOpen}
           />
+          <hr className="my-6"/>
+          <div>
+            <p>{}</p>
+          </div>
         </div>
+
       </div>
     </Container>
   );
