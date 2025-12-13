@@ -1,0 +1,159 @@
+[
+  {
+    "division": "Dhaka",
+    "district": "Dhaka",
+    "upazila": "Dhaka Sadar",
+    "longitude": 90.4125,
+    "latitude": 23.8103,
+    "unions": [
+      { "name_en": "Uttara", "name_bn": "উত্তরা", "postal_code": "1230", "flowchart": "https://example.com/dhaka-flowchart.png" },
+      { "name_en": "Dhanmondi", "name_bn": "ধানমন্ডি", "postal_code": "1205", "flowchart": "https://example.com/dhaka-flowchart.png" },
+      { "name_en": "Mirpur", "name_bn": "মিরপুর", "postal_code": "1216", "flowchart": "https://example.com/dhaka-flowchart.png" },
+      { "name_en": "Mohammadpur", "name_bn": "মোহাম্মদপুর", "postal_code": "1207", "flowchart": "https://example.com/dhaka-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Faridpur",
+    "upazila": "Faridpur Sadar",
+    "longitude": 89.8333,
+    "latitude": 23.6,
+    "unions": [
+      { "name_en": "Goalanda", "name_bn": "গোয়ালন্দ", "postal_code": "7800", "flowchart": "https://example.com/faridpur-flowchart.png" },
+      { "name_en": "Boalmari", "name_bn": "বোয়ালমারী", "postal_code": "7810", "flowchart": "https://example.com/faridpur-flowchart.png" },
+      { "name_en": "Bhanga", "name_bn": "ভাঙ্গা", "postal_code": "7820", "flowchart": "https://example.com/faridpur-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Gazipur",
+    "upazila": "Gazipur Sadar",
+    "longitude": 90.4203,
+    "latitude": 23.9999,
+    "unions": [
+      { "name_en": "Tongi", "name_bn": "টঙ্গী", "postal_code": "1710", "flowchart": "https://example.com/gazipur-flowchart.png" },
+      { "name_en": "Kaliakair", "name_bn": "কালিয়াকৈর", "postal_code": "1750", "flowchart": "https://example.com/gazipur-flowchart.png" },
+      { "name_en": "Sreepur", "name_bn": "শ্রীপুর", "postal_code": "1740", "flowchart": "https://example.com/gazipur-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Gopalganj",
+    "upazila": "Gopalganj Sadar",
+    "longitude": 89.8266,
+    "latitude": 23.0052,
+    "unions": [
+      { "name_en": "Tungipara", "name_bn": "টুঙ্গিপাড়া", "postal_code": "8100", "flowchart": "https://example.com/gopalganj-flowchart.png" },
+      { "name_en": "Kotalipara", "name_bn": "কোটালীপাড়া", "postal_code": "8110", "flowchart": "https://example.com/gopalganj-flowchart.png" },
+      { "name_en": "Kashiani", "name_bn": "কাশিয়ানি", "postal_code": "8120", "flowchart": "https://example.com/gopalganj-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Kishoreganj",
+    "upazila": "Kishoreganj Sadar",
+    "longitude": 90.7829,
+    "latitude": 24.426,
+    "unions": [
+      { "name_en": "Bajitpur", "name_bn": "বাজিতপুর", "postal_code": "2300", "flowchart": "https://example.com/kishoreganj-flowchart.png" },
+      { "name_en": "Kuliarchar", "name_bn": "কুলিয়ারচর", "postal_code": "2310", "flowchart": "https://example.com/kishoreganj-flowchart.png" },
+      { "name_en": "Pakundia", "name_bn": "পাকুন্দিয়া", "postal_code": "2320", "flowchart": "https://example.com/kishoreganj-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Madaripur",
+    "upazila": "Madaripur Sadar",
+    "longitude": 90.2,
+    "latitude": 23.17,
+    "unions": [
+      { "name_en": "Rajoir", "name_bn": "রাজইর", "postal_code": "7900", "flowchart": "https://example.com/madaripur-flowchart.png" },
+      { "name_en": "Kalkini", "name_bn": "কালকিনি", "postal_code": "7910", "flowchart": "https://example.com/madaripur-flowchart.png" },
+      { "name_en": "Shibchar", "name_bn": "শিবচর", "postal_code": "7920", "flowchart": "https://example.com/madaripur-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Manikganj",
+    "upazila": "Manikganj Sadar",
+    "longitude": 89.9767,
+    "latitude": 23.8617,
+    "unions": [
+      { "name_en": "Saturia", "name_bn": "সাটুরিয়া", "postal_code": "1800", "flowchart": "https://example.com/manikganj-flowchart.png" },
+      { "name_en": "Shivalaya", "name_bn": "শিবালয়া", "postal_code": "1810", "flowchart": "https://example.com/manikganj-flowchart.png" },
+      { "name_en": "Ghior", "name_bn": "ঘিওর", "postal_code": "1820", "flowchart": "https://example.com/manikganj-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Munshiganj",
+    "upazila": "Munshiganj Sadar",
+    "longitude": 90.5305,
+    "latitude": 23.55,
+    "unions": [
+      { "name_en": "Sreenagar", "name_bn": "শ্রীনগর", "postal_code": "1500", "flowchart": "https://example.com/munshiganj-flowchart.png" },
+      { "name_en": "Lohajang", "name_bn": "লোহাজং", "postal_code": "1510", "flowchart": "https://example.com/munshiganj-flowchart.png" },
+      { "name_en": "Sirajdikhan", "name_bn": "সিরাজদিখান", "postal_code": "1520", "flowchart": "https://example.com/munshiganj-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Narayanganj",
+    "upazila": "Narayanganj Sadar",
+    "longitude": 90.5,
+    "latitude": 23.62,
+    "unions": [
+      { "name_en": "Fatullah", "name_bn": "ফতুল্লা", "postal_code": "1400", "flowchart": "https://example.com/narayanganj-flowchart.png" },
+      { "name_en": "Siddhirganj", "name_bn": "সিদ্ধিরগঞ্জ", "postal_code": "1410", "flowchart": "https://example.com/narayanganj-flowchart.png" },
+      { "name_en": "Rupganj", "name_bn": "রূপগঞ্জ", "postal_code": "1420", "flowchart": "https://example.com/narayanganj-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Narsingdi",
+    "upazila": "Narsingdi Sadar",
+    "longitude": 90.7156,
+    "latitude": 23.9226,
+    "unions": [
+      { "name_en": "Palash", "name_bn": "পলাশ", "postal_code": "1600", "flowchart": "https://example.com/narsingdi-flowchart.png" },
+      { "name_en": "Belabo", "name_bn": "বেলাবো", "postal_code": "1610", "flowchart": "https://example.com/narsingdi-flowchart.png" },
+      { "name_en": "Raipura", "name_bn": "রায়পুরা", "postal_code": "1620", "flowchart": "https://example.com/narsingdi-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Rajbari",
+    "upazila": "Rajbari Sadar",
+    "longitude": 89.65,
+    "latitude": 23.7576,
+    "unions": [
+      { "name_en": "Pangsha", "name_bn": "পাংশা", "postal_code": "7700", "flowchart": "https://example.com/rajbari-flowchart.png" },
+      { "name_en": "Kalukhali", "name_bn": "কালুখালি", "postal_code": "7710", "flowchart": "https://example.com/rajbari-flowchart.png" },
+      { "name_en": "Baliakandi", "name_bn": "বালিয়াকান্দি", "postal_code": "7720", "flowchart": "https://example.com/rajbari-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Shariatpur",
+    "upazila": "Shariatpur Sadar",
+    "longitude": 90.4308,
+    "latitude": 23.22,
+    "unions": [
+      { "name_en": "Zajira", "name_bn": "যাজিরা", "postal_code": "8000", "flowchart": "https://example.com/shariatpur-flowchart.png" },
+      { "name_en": "Naria", "name_bn": "নারায়া", "postal_code": "8010", "flowchart": "https://example.com/shariatpur-flowchart.png" },
+      { "name_en": "Gosairhat", "name_bn": "গোসাইরহাট", "postal_code": "8020", "flowchart": "https://example.com/shariatpur-flowchart.png" }
+    ]
+  },
+  {
+    "division": "Dhaka",
+    "district": "Tangail",
+    "upazila": "Tangail Sadar",
+    "longitude": 89.92,
+    "latitude": 24.25,
+    "unions": [
+      { "name_en": "Delduar", "name_bn": "দেলদুয়ার", "postal_code": "1900", "flowchart": "https://example.com/tangail-flowchart.png" },
+      { "name_en": "Ghatail", "name_bn": "ঘাটাইল", "postal_code": "1910", "flowchart": "https://example.com/tangail-flowchart.png" },
+      { "name_en": "Kalihati", "name_bn": "কালিহাতী", "postal_code": "1920", "flowchart": "https://example.com/tangail-flowchart.png" }
+    ]
+  }
+]

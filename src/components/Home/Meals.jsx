@@ -13,7 +13,7 @@ const Meals = () => {
       return result.data;
     },
   });
-  console.log(meals);
+  // console.log(meals);
 
   if (isLoading) return <LoadingSpinner />;
 

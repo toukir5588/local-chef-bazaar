@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const Card = ({meal}) => {
-  console.log(meal);
+  // console.log(meal);
   const {
     _id,
     foodName,
