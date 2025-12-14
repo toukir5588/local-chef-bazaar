@@ -15,7 +15,7 @@ import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
 import MyOrders from '../pages/Dashboard/Customer/MyOrders'
 import { createBrowserRouter } from 'react-router'
 import PaymentSuccess from '../pages/Payment/PaymentSuccess'
-import SellerRequests from '../pages/Dashboard/Admin/SellerRequests'
+import SellerRequests from '../pages/Dashboard/Admin/ChefRequests'
 
 import AdminRoute from './AdminRoute'
 import ChefRoute from './ChefRoute'
@@ -92,9 +92,9 @@ export const router = createBrowserRouter([
         path: 'seller-requests',
         element: (
           // <PrivateRoute>
-            // <AdminRoute>
+            <AdminRoute>
               <SellerRequests />
-            // </AdminRoute>
+             </AdminRoute>
           // </PrivateRoute>
         ),
       },

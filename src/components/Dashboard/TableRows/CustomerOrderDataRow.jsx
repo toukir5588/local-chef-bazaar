@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import DeleteModal from '../../Modal/DeleteModal'
-const CustomerOrderDataRow = ({ order }) => {
+const CustomerOrderDataRow = ({ order , setOrders , orders }) => {
   let [isOpen, setIsOpen] = useState(false)
   const closeModal = () => setIsOpen(false)
 
-  const { image, name, category, price, quantity, status } = order || {}
+  const { image, name, category, price, quantity, _id, status ,} = order || {}
+  // console.log(order);
+
 
   return (
     <tr>
@@ -47,7 +49,7 @@ const CustomerOrderDataRow = ({ order }) => {
           <span className='relative cursor-pointer'>Cancel</span>
         </button>
 
-        <DeleteModal isOpen={isOpen} closeModal={closeModal} />
+        <DeleteModal isOpen={isOpen} closeModal={closeModal} setOrders={setOrders} orders={orders} id={_id} />
       </td>
     </tr>
   )
