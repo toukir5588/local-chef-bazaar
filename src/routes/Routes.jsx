@@ -59,12 +59,12 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'add-plant',
+        path: 'add-meals',
         element: (
           // <PrivateRoute>
-            // <SellerRoute>
+            <ChefRoute>
               <AddPlant />
-            // </SellerRoute>
+            </ChefRoute>
           // </PrivateRoute>
         ),
       },
@@ -89,7 +89,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'seller-requests',
+        path: 'chef-requests',
         element: (
           // <PrivateRoute>
             <AdminRoute>
@@ -118,9 +118,9 @@ export const router = createBrowserRouter([
         path: 'manage-orders',
         element: (
           // <PrivateRoute>
-            // <SellerRoute>
+            <ChefRoute>
               <ManageOrders />
-            // </SellerRoute>
+            </ChefRoute>
           // </PrivateRoute>
         ),
       },

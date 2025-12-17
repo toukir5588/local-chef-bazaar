@@ -15,6 +15,7 @@ const SellerRequests = () => {
     queryKey: ['chef-requests', user?.email],
     queryFn: async () => {
       const result = await axiosSecure(`/chef-requests`)
+      console.log(result);
       return result.data
     },
   })
