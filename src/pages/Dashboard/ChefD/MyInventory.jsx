@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import PlantDataRow from "../../../components/Dashboard/TableRows/PlantDataRow";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import MealDataRow from "../../../components/Dashboard/TableRows/MealDataRow";
 
 const MyInventory = () => {
   const { user } = useAuth();
@@ -73,7 +73,7 @@ const MyInventory = () => {
                 </thead>
                 <tbody>
                   {meals.map((plant) => (
-                    <PlantDataRow key={plant._id} plant={plant} />
+                    <MealDataRow key={plant._id} plant={plant} />
                   ))}
                 </tbody>
               </table>

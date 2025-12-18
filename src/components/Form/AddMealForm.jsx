@@ -1,249 +1,230 @@
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../utils";
 import useAuth from "../../hooks/useAuth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import ErrorPage from "../../pages/ErrorPage";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-const AddPlantForm = () => {
+const AddMealForm = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  // useMutation hook useCase (POST || PUT || PATCH || DELETE)
-  const {
-    isPending,
-    isError,
-    mutateAsync,
-    reset: mutationReset,
-  } = useMutation({
-    mutationFn: async (payload) => await axiosSecure.post(`/meals`, payload),
-    onSuccess: (data) => {
-      console.log(data);
-      // show toast
-      toast.success("Plant Added successfully");
-      // navigate to my inventory page
-      mutationReset();
-      // Query key invalidate
+  const { data: dbUser, isLoading: userLoading } = useQuery({
+    queryKey: ['dbUser', user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/users/${user?.email}`);
+      return data;
     },
-    onError: (error) => {
-      console.log(error);
-    },
-    onMutate: (payload) => {
-      console.log("I will post this data--->", payload);
-    },
-    onSettled: (data, error) => {
-      console.log("I am from onSettled--->", data);
-      if (error) console.log(error);
-    },
-    retry: 3,
   });
 
-  // React Hook Form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const { isPending, isError, mutateAsync, reset: mutationReset } = useMutation({
+    mutationFn: async (payload) => await axiosSecure.post(`/meals`, payload),
+    onSuccess: () => {
+      toast.success("Meal added to Bazaar successfully!");
+      mutationReset();
+      reset(); 
+    },
+  });
+
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
   const onSubmit = async (data) => {
-    const { name, description, quantity, price, category, image } = data;
-    const imageFile = image[0];
+    const imageFile = data.foodImage[0]; 
 
     try {
       const imageUrl = await imageUpload(imageFile);
-      const plantData = {
-        image: imageUrl,
-        name,
-        description,
-        quantity: Number(quantity),
-        price: Number(price),
-        category,
-        seller: {
-          image: user?.photoURL,
-          name: user?.displayName,
-          email: user?.email,
-        },
+      
+      const ingredientsArray = data.ingredients
+        .split(',')
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+      const mealData = {
+        foodName: data.foodName,
+        chefName: user?.displayName,
+        foodImage: imageUrl,
+        chefImage: user?.photoURL, 
+        price: Number(data.price),
+        rating: 0, 
+        quantity: Number(data.quantity),
+        Category: data.Category,
+        ingredients: ingredientsArray,
+        estimatedDeliveryTime: data.estimatedDeliveryTime,
+        chefExperience: data.chefExperience,
+        chefId: dbUser?.chefId, 
+        userEmail: user?.email,
+        shortDescription: data.shortDescription,
+        longDescription: data.longDescription,
       };
-      // await axios.post(`${import.meta.env.VITE_API_URL}/meals`, plantData),
-      await mutateAsync(plantData);
-      reset();
+
+      await mutateAsync(mealData);
     } catch (err) {
-      console.log(err);
+      toast.error(err.message || "Failed to process request");
     }
   };
 
-  if (isPending) return <LoadingSpinner />;
+  if (isPending || userLoading) return <LoadingSpinner />;
   if (isError) return <ErrorPage />;
+
   return (
-    <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div className="space-y-6">
-            {/* Name */}
-            <div className="space-y-1 text-sm">
-              <label htmlFor="name" className="block text-gray-600">
-                Name
-              </label>
+    <div className="w-full min-h-screen flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50 p-5 font-sans">
+      <h2 className="text-3xl font-extrabold mb-6 text-amber-600 uppercase tracking-wider">
+        Add New Meal
+      </h2>
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-5xl bg-white p-8 rounded-xl shadow-2xl border-t-8 border-amber-500">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <div className="space-y-5">
+            <div>
+              <label className="block font-semibold text-gray-700 mb-1">Food Name</label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                id="name"
-                type="text"
-                placeholder="Plant Name"
-                {...register("name", {
-                  required: "Name is required",
-                  maxLength: {
-                    value: 20,
-                    message: "Name cannot be too long",
-                  },
-                })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none transition-all"
+                {...register("foodName", { required: "Food name is required" })}
+                placeholder="e.g. Spicy Chicken Curry"
               />
-
-              {errors.name && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.name.message}
-                </p>
-              )}
             </div>
-            {/* Category */}
-            <div className="space-y-1 text-sm">
-              <label htmlFor="category" className="block text-gray-600 ">
-                Category
-              </label>
-              <select
-                required
-                className="w-full px-4 py-3 border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                name="category"
-                {...register("category", { required: "Category is required" })}
-              >
-                <option value="Indoor">Indoor</option>
-                <option value="Outdoor">Outdoor</option>
-                <option value="Succulent">Succulent</option>
-                <option value="Flowering">Flowering</option>
-              </select>
-              {errors.category && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.category.message}
-                </p>
-              )}
-            </div>
-            {/* Description */}
-            <div className="space-y-1 text-sm">
-              <label htmlFor="description" className="block text-gray-600">
-                Description
-              </label>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold text-gray-700 mb-1">Category</label>
+                <select 
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none transition-all cursor-pointer"
+                  {...register("Category", { required: true })}
+                >
+                  <option value="Local">Local</option>
+                  <option value="Fast Food">Fast Food</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Traditional">Traditional</option>
+                </select>
+              </div>
+              <div>
+                <label className="block font-semibold text-gray-700 mb-1">Quantity</label>
+                <input
+                  type="number"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none transition-all"
+                  {...register("quantity", { required: true, min: 1 })}
+                  defaultValue={1}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-semibold text-gray-700 mb-1">Short Description</label>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none transition-all"
+                {...register("shortDescription", { required: true })}
+                placeholder="A quick summary of the dish"
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold text-gray-700 mb-1">Long Description</label>
               <textarea
-                id="description"
-                placeholder="Write plant description here..."
-                className="block rounded-md focus:lime-300 w-full h-32 px-4 py-3 text-gray-800  border border-lime-300 bg-white focus:outline-lime-500 "
-                name="description"
-                {...register("description", {
-                  required: "Description is required",
-                })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none h-32 transition-all resize-none"
+                {...register("longDescription", { required: true })}
+                placeholder="Share the full recipe story or details..."
               ></textarea>
-              {errors.description && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.description.message}
-                </p>
-              )}
             </div>
           </div>
-          <div className="space-y-6 flex flex-col">
-            {/* Price & Quantity */}
-            <div className="flex justify-between gap-2">
-              {/* Price */}
-              <div className="space-y-1 text-sm">
-                <label htmlFor="price" className="block text-gray-600 ">
-                  Price
-                </label>
-                <input
-                  className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                  id="price"
-                  type="number"
-                  placeholder="Price per unit"
-                  {...register("price", {
-                    required: "Price is required",
-                    min: { value: 0, message: "Price must be positive" },
-                  })}
-                />
-                {errors.price && (
-                  <p className="text-xs text-red-500 mt-1">
-                    {errors.price.message}
-                  </p>
-                )}
-              </div>
 
-              {/* Quantity */}
-              <div className="space-y-1 text-sm">
-                <label htmlFor="quantity" className="block text-gray-600">
-                  Quantity
-                </label>
+          <div className="space-y-5">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold text-gray-700 mb-1">Price ($)</label>
                 <input
-                  className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                  id="quantity"
                   type="number"
-                  placeholder="Available quantity"
-                  {...register("quantity", {
-                    required: "Quantity is required",
-                    min: { value: 1, message: "Quantity must be at least 1" },
-                  })}
+                  step="0.01"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none transition-all font-mono"
+                  {...register("price", { required: true })}
                 />
-                {errors.quantity && (
-                  <p className="text-xs text-red-500 mt-1">
-                    {errors.quantity.message}
-                  </p>
-                )}
               </div>
-            </div>
-            {/* Image */}
-            <div className=" p-4  w-full  m-auto rounded-lg grow">
-              <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
-                <div className="flex flex-col w-max mx-auto text-center">
-                  <label>
-                    <input
-                      className="text-sm cursor-pointer w-36 hidden"
-                      type="file"
-                      name="image"
-                      id="image"
-                      accept="image/*"
-                      hidden
-                      {...register("image", {
-                        required: "Image is required",
-                      })}
-                    />
-                    {errors.image && (
-                      <p className="text-xs text-red-500 mt-1">
-                        {errors.image.message}
-                      </p>
-                    )}
-                    <div className="bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500">
-                      Upload
-                    </div>
-                  </label>
-                </div>
+              <div>
+                <label className="block font-semibold text-gray-700 mb-1">Delivery Time</label>
+                <input
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none transition-all"
+                  {...register("estimatedDeliveryTime", { required: true })}
+                  placeholder="e.g. 30-45 mins"
+                />
               </div>
             </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full cursor-pointer p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500 "
-            >
-              {isPending ? (
-                <TbFidgetSpinner className="animate-spin m-auto" />
-              ) : (
-                "Save & Continue"
-              )}
-            </button>
+            <div>
+              <label className="block font-semibold text-gray-700 mb-1">Ingredients (Separated by commas)</label>
+              <textarea
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none h-20 transition-all resize-none"
+                {...register("ingredients", { required: true })}
+                placeholder="e.g. Salt, Pepper, Chicken, Garlic"
+              ></textarea>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold text-gray-700 mb-1">Chef ID (Auto)</label>
+                <input
+                  className="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-amber-700 font-bold cursor-not-allowed"
+                  value={dbUser?.chefId || "Not Assigned"}
+                  readOnly
+                />
+              </div>
+              <div>
+                <label className="block font-semibold text-gray-700 mb-1">Chef Experience</label>
+                <input
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none transition-all"
+                  {...register("chefExperience", { required: true })}
+                  placeholder="e.g. 5 Years"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-semibold text-gray-700 mb-1">Chef Email</label>
+              <input
+                className="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-500 cursor-not-allowed"
+                value={user?.email}
+                readOnly
+              />
+            </div>
+
+            <div className="relative group">
+              <div className="p-6 border-2 border-dashed border-amber-300 rounded-xl text-center bg-amber-50 group-hover:bg-amber-100 transition-colors">
+                <input
+                  type="file"
+                  id="foodImage"
+                  accept="image/*"
+                  {...register("foodImage", { required: "Please upload an image" })}
+                  className="hidden"
+                />
+                <label htmlFor="foodImage" className="cursor-pointer">
+                  <span className="bg-amber-600 text-white px-8 py-2 rounded-full font-bold hover:bg-amber-700 transition shadow-md inline-block">
+                    Upload Food Image
+                  </span>
+                  <p className="mt-2 text-sm text-amber-700 font-medium">Click to select high-quality food photo</p>
+                </label>
+              </div>
+              {errors.foodImage && <p className="text-red-500 text-xs mt-2 absolute">{errors.foodImage.message}</p>}
+            </div>
           </div>
         </div>
+
+        <button
+          type="submit"
+          disabled={isPending}
+          className="w-full py-4 mt-12 bg-amber-600 text-white font-black text-xl rounded-xl hover:bg-amber-700 transition duration-300 shadow-xl active:scale-[0.98] flex justify-center items-center uppercase tracking-widest"
+        >
+          {isPending ? (
+            <TbFidgetSpinner className="animate-spin text-3xl" />
+          ) : (
+            "Save Meal to Bazaar"
+          )}
+        </button>
       </form>
     </div>
   );
 };
 
-export default AddPlantForm;
+export default AddMealForm;

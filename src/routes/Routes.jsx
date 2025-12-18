@@ -2,16 +2,14 @@ import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
-import PlantDetails from '../pages/MealDetails/MealDetails'
 // import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
-import AddPlant from '../pages/Dashboard/Seller/AddPlant'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
 import MainLayout from '../layouts/MainLayout'
-import MyInventory from '../pages/Dashboard/Seller/MyInventory'
-import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
+import MyInventory from '../pages/Dashboard/ChefD/MyInventory'
+import ManageOrders from '../pages/Dashboard/ChefD/ManageOrders'
 import MyOrders from '../pages/Dashboard/Customer/MyOrders'
 import { createBrowserRouter } from 'react-router'
 import PaymentSuccess from '../pages/Payment/PaymentSuccess'
@@ -19,6 +17,8 @@ import SellerRequests from '../pages/Dashboard/Admin/ChefRequests'
 
 import AdminRoute from './AdminRoute'
 import ChefRoute from './ChefRoute'
+import AddMeal from '../pages/Dashboard/ChefD/AddMeal'
+import MealDetails from '../pages/MealDetails/MealDetails'
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/meal/:id',
-        element: <PlantDetails />,
+        element: <MealDetails/>,
       },
       {
         path: '/payment-success',
@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
         element: (
           // <PrivateRoute>
             <ChefRoute>
-              <AddPlant />
+              <AddMeal />
             </ChefRoute>
           // </PrivateRoute>
         ),

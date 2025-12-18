@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const Card = ({meal}) => {
-  // console.log(meal);
+const Card = ({ meal }) => {
   const {
     _id,
     foodName,
@@ -12,16 +11,15 @@ const Card = ({meal}) => {
     chefName,
     estimatedDeliveryTime,
   } = meal || {};
- 
 
   const displayRating = rating ? rating.toFixed(1) : 'N/A';
   const displayPrice = price ? price.toFixed(2) : 'N/A';
   const displayTime = estimatedDeliveryTime || '30-45 mins';
   const chef = chefName || 'Local Chef';
 
-  const ACCENT_COLOR_CLASS = "yellow-600";
-  const ACCENT_TEXT_COLOR = `text-${ACCENT_COLOR_CLASS}`;
-  const ACCENT_BG_COLOR = `bg-${ACCENT_COLOR_CLASS}`;
+  // স্ক্রিনশট অনুযায়ী Amber/Golden থিম ব্যবহার করা হয়েছে
+  const ACCENT_TEXT_COLOR = `text-amber-600`;
+  const ACCENT_BORDER_COLOR = `border-amber-600`;
 
   return (
     <div
@@ -34,20 +32,23 @@ const Card = ({meal}) => {
         shadow-lg 
         bg-white 
         hover:shadow-xl 
-        hover:border-2 hover:border-${ACCENT_COLOR_CLASS} 
+        hover:border-amber-600 
         border border-gray-100 
         overflow-hidden
+        flex flex-col h-full 
       `}
     >
-      <div className="flex flex-col gap-3 w-full">
+      <div className="flex flex-col gap-3 w-full h-full flex-grow">
+        {/* Image Section - Fixed Aspect Ratio */}
         <div
           className="
-              aspect-[4/3] 
-              w-full 
-              relative 
-              overflow-hidden 
-              rounded-lg
-            "
+            aspect-[4/3] 
+            w-full 
+            relative 
+            overflow-hidden 
+            rounded-lg
+            bg-gray-100
+          "
         >
           <img
             className="
@@ -56,44 +57,51 @@ const Card = ({meal}) => {
               w-full 
               group-hover:scale-110 
               transition duration-500
-              bg-gray-200
             "
             src={foodImage}
             alt={foodName}
           />
           <div
             className={`
-              absolute
-              top-3
-              left-3
-              ${ACCENT_BG_COLOR} 
-              px-3 py-1 rounded-full text-sm font-bold 
+              absolute top-3 left-3
+              bg-amber-500 
+              px-3 py-1 rounded-full text-xs font-bold 
               flex items-center gap-1 shadow-lg
-              text-yellow-500
+              text-white
             `}
           >
-            <span className="">★</span> {displayRating}
+            <span>★</span> {displayRating}
           </div>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <div className="font-bold text-lg text-gray-800 truncate mt-1">
-            {foodName}
+        {/* Content Section */}
+        <div className="flex flex-col flex-grow">
+          {/* Title - Fixed height for 2 lines using line-clamp */}
+          <div className="font-bold text-lg text-gray-800 mt-1 mb-1 line-clamp-2 h-[3.5rem]">
+            {foodName || "Unnamed Meal"}
           </div>
 
-          <div className="flex justify-between items-center text-sm text-gray-500">
-            <span className="font-medium text-gray-700">🧑‍🍳 {chef}</span>
-            <span>⏳ {displayTime}</span>
+          <div className="flex justify-between items-center text-xs text-gray-500 mt-auto">
+            <span className="font-medium text-gray-700 truncate max-w-[120px]">
+              🧑‍🍳 {chef}
+            </span>
+            <span className="flex-shrink-0">⏳ {displayTime}</span>
           </div>
 
-          <hr className="my-2 border-gray-100" />
+          <hr className="my-3 border-gray-100" />
 
-          <div className="flex justify-between items-center">
-            <div className={`font-extrabold text-2xl ${ACCENT_TEXT_COLOR}`}>
+          {/* Bottom Section - Always stays at the bottom */}
+          <div className="flex justify-between items-center mt-auto">
+            <div className={`font-extrabold text-xl ${ACCENT_TEXT_COLOR}`}>
               ${displayPrice}
             </div>
 
-            <Link className='border-2 text-sm hover:bg-amber-500 hover:text-white  border-yellow-600 py-2 px-3 rounded-sm font-bold' to={`/meal/${_id}`}>See Details</Link>
+            <Link 
+              className={`border-2 text-xs hover:bg-amber-600 hover:text-white ${ACCENT_BORDER_COLOR} py-2 px-3 rounded-md font-bold transition-colors`} 
+              to={`/meal/${_id}`}
+            >
+              See Details
+            </Link>
           </div>
         </div>
       </div>

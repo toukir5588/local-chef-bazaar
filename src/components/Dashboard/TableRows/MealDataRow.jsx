@@ -2,7 +2,7 @@ import { useState } from 'react'
 import DeleteModal from '../../Modal/DeleteModal'
 import UpdatePlantModal from '../../Modal/UpdateMealModal'
 
-const PlantDataRow = ({ plant }) => {
+const MealDataRow = ({ plant }) => {
   let [isOpen, setIsOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
@@ -74,4 +74,4 @@ const PlantDataRow = ({ plant }) => {
   )
 }
 
-export default PlantDataRow
+export default MealDataRow
