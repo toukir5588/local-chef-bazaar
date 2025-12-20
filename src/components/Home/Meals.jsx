@@ -6,9 +6,9 @@ import LoadingSpinner from "../Shared/LoadingSpinner";
 
 const Meals = () => {
   const { data: meals = [], isLoading } = useQuery({
-    queryKey: ["meals"],
+    queryKey: ["latest-meals"],
     queryFn: async () => {
-      const result = await axios(`${import.meta.env.VITE_API_URL}/meals`);
+      const result = await axios(`${import.meta.env.VITE_API_URL}/latest-meals`);
       // console.log(result.data);
       return result.data;
     },

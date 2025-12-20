@@ -1,4 +1,5 @@
 import { BsFingerprint } from 'react-icons/bs'
+import { MdFavorite } from "react-icons/md";
 import { GrUserAdmin } from 'react-icons/gr'
 import MenuItem from './MenuItem'
 import { useState } from 'react'
@@ -13,6 +14,7 @@ const CustomerMenu = () => {
   return (
     <>
       <MenuItem icon={BsFingerprint} label='My Orders' address='my-orders' />
+      <MenuItem icon={MdFavorite } label='My favorites' address='my-favorites' />
 
       <div
         onClick={() => setIsOpen(true)}

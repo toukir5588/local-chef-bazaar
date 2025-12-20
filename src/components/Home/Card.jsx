@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -7,76 +9,51 @@ const Card = ({ meal }) => {
     foodName,
     foodImage,
     price,
-    rating,
     chefName,
     estimatedDeliveryTime,
   } = meal || {};
 
-  const displayRating = rating ? rating.toFixed(1) : 'N/A';
+  const { data: reviews = [] } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: async () => {
+      const result = await axios(`${import.meta.env.VITE_API_URL}/all-reviews`);
+      return result.data;
+    },
+  });
+
+  const mealReviews = reviews.filter(rev => rev.mealId === _id);
+  const totalRating = mealReviews.reduce((sum, rev) => sum + (rev.rating || 0), 0);
+  const averageRating = mealReviews.length > 0 ? (totalRating / mealReviews.length).toFixed(1) : 'New';
+
   const displayPrice = price ? price.toFixed(2) : 'N/A';
   const displayTime = estimatedDeliveryTime || '30-45 mins';
   const chef = chefName || 'Local Chef';
 
-  // স্ক্রিনশট অনুযায়ী Amber/Golden থিম ব্যবহার করা হয়েছে
   const ACCENT_TEXT_COLOR = `text-amber-600`;
   const ACCENT_BORDER_COLOR = `border-amber-600`;
 
   return (
     <div
       className={`
-        col-span-1 
-        group 
-        p-4 
-        rounded-xl 
-        transition duration-300 
-        shadow-lg 
-        bg-white 
-        hover:shadow-xl 
-        hover:border-amber-600 
-        border border-gray-100 
-        overflow-hidden
-        flex flex-col h-full 
+        col-span-1 group p-4 rounded-xl transition duration-300 shadow-lg 
+        bg-white hover:shadow-xl border border-gray-100 overflow-hidden flex flex-col h-full 
       `}
     >
       <div className="flex flex-col gap-3 w-full h-full flex-grow">
-        {/* Image Section - Fixed Aspect Ratio */}
-        <div
-          className="
-            aspect-[4/3] 
-            w-full 
-            relative 
-            overflow-hidden 
-            rounded-lg
-            bg-gray-100
-          "
-        >
+        {/* Image Section */}
+        <div className="aspect-[4/3] w-full relative overflow-hidden rounded-lg bg-gray-100">
           <img
-            className="
-              object-cover 
-              h-full 
-              w-full 
-              group-hover:scale-110 
-              transition duration-500
-            "
+            className="object-cover h-full w-full group-hover:scale-110 transition duration-500"
             src={foodImage}
             alt={foodName}
           />
-          <div
-            className={`
-              absolute top-3 left-3
-              bg-amber-500 
-              px-3 py-1 rounded-full text-xs font-bold 
-              flex items-center gap-1 shadow-lg
-              text-white
-            `}
-          >
-            <span>★</span> {displayRating}
+          <div className="absolute top-3 left-3 bg-amber-500 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg text-white">
+            <span>★</span> {averageRating}
           </div>
         </div>
 
         {/* Content Section */}
         <div className="flex flex-col flex-grow">
-          {/* Title - Fixed height for 2 lines using line-clamp */}
           <div className="font-bold text-lg text-gray-800 mt-1 mb-1 line-clamp-2 h-[3.5rem]">
             {foodName || "Unnamed Meal"}
           </div>
@@ -90,7 +67,6 @@ const Card = ({ meal }) => {
 
           <hr className="my-3 border-gray-100" />
 
-          {/* Bottom Section - Always stays at the bottom */}
           <div className="flex justify-between items-center mt-auto">
             <div className={`font-extrabold text-xl ${ACCENT_TEXT_COLOR}`}>
               ${displayPrice}

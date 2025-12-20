@@ -16,6 +16,7 @@ const ManageOrders = () => {
       return result.data
     },
   })
+  console.log(orders);
 
   if (isLoading) return <LoadingSpinner />
 
@@ -46,6 +47,9 @@ const ManageOrders = () => {
                   <th className='px-5 py-3 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-bold'>
                     Action
                   </th>
+                  {/* <th className='px-5 py-3 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-bold'>
+                    Cancel
+                  </th> */}
                 </tr>
               </thead>
               <tbody>
@@ -53,6 +57,7 @@ const ManageOrders = () => {
                   <SellerOrderDataRow 
                     key={order._id} 
                     order={order} 
+                    user={user}
                     refetch={refetch} 
                   />
                 ))}

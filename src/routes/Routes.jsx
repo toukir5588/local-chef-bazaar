@@ -19,6 +19,8 @@ import AdminRoute from './AdminRoute'
 import ChefRoute from './ChefRoute'
 import AddMeal from '../pages/Dashboard/ChefD/AddMeal'
 import MealDetails from '../pages/MealDetails/MealDetails'
+import MyFavorites from '../pages/Dashboard/Customer/MyFavorites'
+import AllMeals from '../pages/AllMeals/AllMeals'
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/all-meal',
+        element: <AllMeals />,
       },
       {
         path: '/meal/:id',
@@ -111,6 +117,14 @@ export const router = createBrowserRouter([
         element: (
           // <PrivateRoute>
             <MyOrders />
+          // </PrivateRoute>
+        ),
+      },
+      {
+        path: 'my-favorites',
+        element: (
+          // <PrivateRoute>
+            <MyFavorites />
           // </PrivateRoute>
         ),
       },
