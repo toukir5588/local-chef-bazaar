@@ -2,13 +2,12 @@ import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
-// import PrivateRoute from './PrivateRoute'
+import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
 import MainLayout from '../layouts/MainLayout'
-import MyInventory from '../pages/Dashboard/ChefD/MyInventory'
 import ManageOrders from '../pages/Dashboard/ChefD/ManageOrders'
 import MyOrders from '../pages/Dashboard/Customer/MyOrders'
 import { createBrowserRouter } from 'react-router'
@@ -22,6 +21,7 @@ import MealDetails from '../pages/MealDetails/MealDetails'
 import MyFavorites from '../pages/Dashboard/Customer/MyFavorites'
 import AllMeals from '../pages/AllMeals/AllMeals'
 import AboutUs from '../pages/AboutUs/AboutUs'
+import MyMeals from '../pages/Dashboard/ChefD/MyMeals'
 
 export const router = createBrowserRouter([
   {
@@ -56,91 +56,91 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: (
-      // <PrivateRoute>
+      <PrivateRoute>
         <DashboardLayout />
-      // </PrivateRoute>
+      </PrivateRoute>
     ),
     children: [
       {
         index: true,
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <Statistics />
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: 'add-meals',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <ChefRoute>
               <AddMeal />
             </ChefRoute>
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
-        path: 'my-inventory',
+        path: 'my-meals',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <ChefRoute>
-              <MyInventory />
+              <MyMeals />
              </ChefRoute>
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: 'manage-users',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <AdminRoute>
               <ManageUsers />
             </AdminRoute>
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: 'chef-requests',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <AdminRoute>
               <SellerRequests />
              </AdminRoute>
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: 'profile',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <Profile />
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: 'my-orders',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <MyOrders />
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: 'my-favorites',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <MyFavorites />
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: 'manage-orders',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <ChefRoute>
               <ManageOrders />
             </ChefRoute>
-          // </PrivateRoute>
+          </PrivateRoute>
         ),
       },
     ],

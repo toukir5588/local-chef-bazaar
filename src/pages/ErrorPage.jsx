@@ -5,17 +5,18 @@ const ErrorPage = () => {
   const navigate = useNavigate()
 
   return (
-    <section className='bg-white '>
+    <section className='bg-white'>
       <div className='container flex items-center min-h-screen px-6 py-12 mx-auto'>
         <div className='flex flex-col items-center max-w-sm mx-auto text-center'>
-          <p className='p-3 text-sm font-medium text-lime-500 rounded-full bg-blue-50 '>
+          {/* Icon Container with Amber Theme */}
+          <p className='p-4 text-sm font-medium text-amber-500 rounded-full bg-amber-50 shadow-sm'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
               strokeWidth='2'
               stroke='currentColor'
-              className='w-6 h-6'
+              className='w-8 h-8'
             >
               <path
                 strokeLinecap='round'
@@ -24,23 +25,27 @@ const ErrorPage = () => {
               />
             </svg>
           </p>
-          <h1 className='mt-3 text-2xl font-semibold text-gray-800  md:text-3xl'>
-            Something Went Wrong!
+          
+          <h1 className='mt-6 text-3xl font-black text-gray-900 md:text-4xl'>
+            Oops! Page Not Found
           </h1>
-          <p className='mt-4 text-gray-500 '>Here are some helpful links:</p>
+          <p className='mt-4 text-gray-500 font-medium'>
+            It seems like the dish you're looking for isn't on our menu today.
+          </p>
 
-          <div className='flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto'>
+          <div className='flex items-center w-full mt-8 gap-x-4 shrink-0 sm:w-auto'>
+            {/* Go Back Button */}
             <button
               onClick={() => navigate(-1)}
-              className='flex items-center justify-center w-1/2 px-5 py-1 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto   hover:bg-gray-100 '
+              className='flex items-center justify-center w-1/2 px-6 py-2.5 text-sm font-bold text-gray-700 transition-all duration-200 bg-white border-2 border-gray-100 rounded-2xl gap-x-2 sm:w-auto hover:bg-gray-50 hover:border-amber-200 active:scale-95'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
-                strokeWidth='1.5'
+                strokeWidth='2'
                 stroke='currentColor'
-                className='w-5 h-5 rtl:rotate-180 text-lime-500'
+                className='w-5 h-5 rtl:rotate-180 text-amber-500'
               >
                 <path
                   strokeLinecap='round'
@@ -49,10 +54,13 @@ const ErrorPage = () => {
                 />
               </svg>
 
-              <span>Go back</span>
+              <span>Go Back</span>
             </button>
 
-            <Button label={'Take Me Home'} onClick={() => navigate('/')} />
+            {/* Take Me Home Button */}
+            <div className="w-1/2 sm:w-auto transform transition-transform hover:-translate-y-1">
+                <Button label={'Back to Home'} onClick={() => navigate('/')} />
+            </div>
           </div>
         </div>
       </div>

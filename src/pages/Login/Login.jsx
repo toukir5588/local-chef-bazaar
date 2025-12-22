@@ -24,7 +24,7 @@ const Login = () => {
     const password = form.password.value
 
     try {
-      //User Login
+      // User Login
       const { user } = await signIn(email, password)
 
       await saveOrUpdateUser({
@@ -34,7 +34,7 @@ const Login = () => {
       })
 
       navigate(from, { replace: true })
-      toast.success('Login Successful')
+      toast.success('Welcome Back! Login Successful')
     } catch (err) {
       console.log(err)
       toast.error(err?.message)
@@ -44,7 +44,7 @@ const Login = () => {
   // Handle Google Signin
   const handleGoogleSignIn = async () => {
     try {
-      //User Registration using google
+      // User Registration using google
       const { user } = await signInWithGoogle()
 
       await saveOrUpdateUser({
@@ -53,58 +53,56 @@ const Login = () => {
         image: user?.photoURL,
       })
       navigate(from, { replace: true })
-      toast.success('Login Successful')
+      toast.success('Login Successful with Google')
     } catch (err) {
       console.log(err)
       setLoading(false)
       toast.error(err?.message)
     }
   }
+
   return (
     <div className='flex justify-center items-center min-h-screen bg-white'>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
+      <div className='flex flex-col max-w-md p-6 rounded-[2.5rem] sm:p-10 bg-white text-gray-900 border border-gray-100 shadow-2xl'>
         <div className='mb-8 text-center'>
-          <h1 className='my-3 text-4xl font-bold'>Log In</h1>
-          <p className='text-sm text-gray-400'>
-            Sign in to access your account
+          <h1 className='my-3 text-4xl font-black text-gray-800'>Log In</h1>
+          <p className='text-sm text-gray-400 font-medium'>
+            Welcome back to <span className='text-amber-500 font-bold'>LocalChefBazaar</span>
           </p>
         </div>
+        
         {/* Login Form */}
         <form
           onSubmit={handleSubmit}
-          noValidate=''
-          action=''
-          className='space-y-6 ng-untouched ng-pristine ng-valid'
+          className='space-y-6'
         >
           <div className='space-y-4'>
             <div>
-              <label htmlFor='email' className='block mb-2 text-sm'>
-                Email address
+              <label htmlFor='email' className='block mb-2 text-sm font-bold text-gray-700'>
+                Email Address
               </label>
               <input
                 type='email'
                 name='email'
                 id='email'
                 required
-                placeholder='Enter Your Email Here'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
+                placeholder='Enter your email'
+                className='w-full px-4 py-3 border rounded-2xl border-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-gray-50 text-gray-900 transition-all'
               />
             </div>
             <div>
               <div className='flex justify-between'>
-                <label htmlFor='password' className='text-sm mb-2'>
+                <label htmlFor='password' className='text-sm mb-2 font-bold text-gray-700'>
                   Password
                 </label>
               </div>
               <input
                 type='password'
                 name='password'
-                autoComplete='current-password'
                 id='password'
                 required
                 placeholder='*******'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
+                className='w-full px-4 py-3 border rounded-2xl border-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-gray-50 text-gray-900 transition-all'
               />
             </div>
           </div>
@@ -112,46 +110,48 @@ const Login = () => {
           <div>
             <button
               type='submit'
-              className='bg-lime-500 w-full rounded-md py-3 text-white'
+              className='bg-amber-500 hover:bg-amber-600 w-full rounded-2xl py-3 text-white font-bold shadow-lg shadow-amber-100 transition-all transform hover:-translate-y-0.5'
             >
               {loading ? (
-                <TbFidgetSpinner className='animate-spin m-auto' />
+                <TbFidgetSpinner className='animate-spin m-auto text-2xl' />
               ) : (
                 'Continue'
               )}
             </button>
           </div>
         </form>
-        <div className='space-y-1'>
-          <button className='text-xs hover:underline hover:text-lime-500 text-gray-400 cursor-pointer'>
+
+        <div className='mt-2'>
+          <button className='text-xs font-bold hover:text-amber-600 text-gray-400 cursor-pointer transition-colors'>
             Forgot password?
           </button>
         </div>
+
         <div className='flex items-center pt-4 space-x-1'>
-          <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
-          <p className='px-3 text-sm dark:text-gray-400'>
-            Login with social accounts
+          <div className='flex-1 h-px bg-gray-200'></div>
+          <p className='px-3 text-sm text-gray-400 font-medium'>
+            Or social login
           </p>
-          <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
+          <div className='flex-1 h-px bg-gray-200'></div>
         </div>
+
         <div
           onClick={handleGoogleSignIn}
-          className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
+          className='flex justify-center items-center space-x-2 border mt-4 p-3 border-gray-200 rounded-2xl cursor-pointer hover:bg-gray-50 transition-all group'
         >
-          <FcGoogle size={32} />
-
-          <p>Continue with Google</p>
+          <FcGoogle size={28} />
+          <p className='font-bold text-gray-700 group-hover:text-amber-600'>Continue with Google</p>
         </div>
-        <p className='px-6 text-sm text-center text-gray-400'>
+
+        <p className='px-6 mt-6 text-sm text-center text-gray-400'>
           Don&apos;t have an account yet?{' '}
           <Link
             state={from}
             to='/signup'
-            className='hover:underline hover:text-lime-500 text-gray-600'
+            className='font-bold text-amber-500 hover:text-amber-600 hover:underline transition-colors'
           >
             Sign up
           </Link>
-          .
         </p>
       </div>
     </div>
