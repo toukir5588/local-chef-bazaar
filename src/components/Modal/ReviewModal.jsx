@@ -27,9 +27,9 @@ const ReviewModal = ({ isOpen, closeModal, meal, user, refetch }) => {
     try {
       await axiosSecure.post("/reviews", reviewData);
       toast.success("Thank you for your review! ⭐");
-      e.target.reset(); // ফর্ম রিসেট
-      setRating(0);    // স্টার রিসেট
-      refetch();       // ডাটা রিলোড
+      e.target.reset(); 
+      setRating(0);    
+      refetch();       
       closeModal();
     } catch (err) {
       toast.error("Failed to submit review.");

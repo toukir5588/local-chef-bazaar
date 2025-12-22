@@ -21,6 +21,7 @@ import AddMeal from '../pages/Dashboard/ChefD/AddMeal'
 import MealDetails from '../pages/MealDetails/MealDetails'
 import MyFavorites from '../pages/Dashboard/Customer/MyFavorites'
 import AllMeals from '../pages/AllMeals/AllMeals'
+import AboutUs from '../pages/AboutUs/AboutUs'
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: '/all-meal',
         element: <AllMeals />,
+      },
+      {
+        path: '/about-us',
+        element: <AboutUs />,
       },
       {
         path: '/meal/:id',
